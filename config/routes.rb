@@ -1,5 +1,5 @@
 Thamdo::Application.routes.draw do
-  root :to => "dashboard#index"
+  get "dashboard/index"
 
  devise_for :users do
   get '/users/sign_out' => 'devise/cas_sessions#destroy'
