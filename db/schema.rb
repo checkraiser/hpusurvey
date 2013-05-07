@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130507010750) do
+ActiveRecord::Schema.define(:version => 20130507023353) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "resource_id",   :null => false
@@ -45,6 +45,72 @@ ActiveRecord::Schema.define(:version => 20130507010750) do
 
   add_index "admin_users", ["email"], :name => "index_admin_users_on_email", :unique => true
   add_index "admin_users", ["reset_password_token"], :name => "index_admin_users_on_reset_password_token", :unique => true
+
+  create_table "answers", :force => true do |t|
+    t.integer  "question_id"
+    t.text     "answer_text"
+    t.integer  "display_order"
+    t.integer  "score_point"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
+
+  create_table "ketquas", :force => true do |t|
+    t.integer  "sinhvien_id"
+    t.integer  "answer_id"
+    t.text     "answer_text"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "question_types", :force => true do |t|
+    t.string   "type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "questions", :force => true do |t|
+    t.integer  "survey_id"
+    t.text     "question_text"
+    t.integer  "question_type_id"
+    t.integer  "display_order"
+    t.boolean  "required"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+  end
+
+  create_table "semesters", :force => true do |t|
+    t.string   "name"
+    t.boolean  "activated"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "sinhviens", :force => true do |t|
+    t.string   "masinhvien"
+    t.string   "student_name"
+    t.string   "malop"
+    t.string   "mamon"
+    t.integer  "survey_id"
+    t.string   "tenmon"
+    t.string   "giangvien"
+    t.string   "bomon"
+    t.datetime "vote_date"
+    t.string   "ip_source"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  create_table "surveys", :force => true do |t|
+    t.date     "open_date"
+    t.date     "close_date"
+    t.string   "title"
+    t.string   "year"
+    t.integer  "semester_id"
+    t.boolean  "activated"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "username",               :default => "", :null => false
