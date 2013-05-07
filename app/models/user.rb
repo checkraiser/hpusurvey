@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :username, :masinhvien, :name
+
+  validates_presence_of :username, :masinhvien
   # attr_accessible :title, :body
   def cas_extra_attributes=(extra_attributes)
     extra_attributes.each do |name, value|

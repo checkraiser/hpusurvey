@@ -3,6 +3,7 @@ class Semester < ActiveRecord::Base
 
   has_many :surveys
 
+  validates_presence_of :name
   def to_s
   	"#{self.name}"
   end
