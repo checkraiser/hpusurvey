@@ -3,6 +3,12 @@ class Sinhvien < ActiveRecord::Base
 
   validates_presence_of :bomon, :giangvien, :malop, :mamon, :masinhvien, :tenmon
   belongs_to :survey
+  scope :by_survey, lambda { |sid|
+  	where('survey_id = ?', sid)
+  }
+  scope :by_masinhvien, lambda { |msv|
+  	where('masinhvien = ?', msv)
+  }
   def voted?
   	return self.vote_date.is_a? DateTime
   end

@@ -6,6 +6,8 @@ class Question < ActiveRecord::Base
   
   belongs_to :question_type
   belongs_to :survey
+  has_many :answers
+
   before_save :set_display_order
   after_create :create_default_answer
   def to_s

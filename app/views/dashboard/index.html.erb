@@ -1,1 +1,16 @@
 Hello <%= current_user.masinhvien %>
+<br />
+<% current_sinhviens.each do |s| %>
+		<%= s.malop %>, <%= s.mamon %>, <%= s.giangvien %>, <%= s.bomon %> <br />
+
+
+<% s.survey.questions.each do |question| %>
+	<%= question.question_text %>
+	<ul>
+	<% question.answers.each do |answer| %>
+		<li><%= answer.answer_text %></li>
+	<% end %>
+	</ul>
+<% end %>
+
+<% end %>
