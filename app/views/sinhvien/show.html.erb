@@ -1,16 +1,20 @@
-<%= form_for(@current_sinhvien) do |f| %>
-	
-	<% @current_survey.questions.each do |question| %>
-		<%= f.fields_for question do |ff| %>
+Hello <%= current_user.name %> <br />
+
+<% if @current_sinhvien then %>
+	<form action="<%= @current_sinhvien.id %>" method="post">
+		<% @current_survey.questions.each do |question| %>		
 			<h2><%= question.question_text %></h2>
-			<% question.answers.each do |answer| %>
-				<%= ff.fields_for answer do |fff| %>
-					<%= fff.radio_button :id, :answer_text %>
-				<% end %>
+			<% if question.is_radio? %>
+				<% question.answers.each_with_index do |answer, i| %>
+					<input type="radio" name="_radio_<%= question.id %>" value="<%= i %>" /><%= answer.answer_text %></br>
+				<% end %>		
+			<% else %>
+				<textarea rows="4" cols="10" name="_text_<%= question.id %>"></textarea><br />
 			<% end %>
 		<% end %>
-	<% end %>
-	
-	<input type="submit" value="Submit" />
+		 <input name="authenticity_token" 
+	               type="hidden" 
+	               value="<%= form_authenticity_token %>"/>
+		<input  type="submit" value="Submit" />
+	</form>
 <% end %>
-

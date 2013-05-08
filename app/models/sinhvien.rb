@@ -5,7 +5,10 @@ class Sinhvien < ActiveRecord::Base
   belongs_to :survey
   has_many :questions, :through => :survey
   accepts_nested_attributes_for :questions
-  
+
+  scope :by_id, lambda { |id| 
+    where('sinhvien_id = ?', id)
+  }
   scope :by_survey, lambda { |sid|
   	where('survey_id = ?', sid)
   }
@@ -14,7 +17,12 @@ class Sinhvien < ActiveRecord::Base
   }
   has_many :ketquas
 
+  scope :by_voted, where("ip_source = ?", "")
   def voted?
-  	return self.vote_date.is_a? DateTime
+  	return ip_source.length > 0
+  end
+
+  def to_s
+    "#{self.masinhvien} - #{self.survey} - #{self.giangvien} - #{self.tenmon}"
   end
 end

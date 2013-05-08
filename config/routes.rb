@@ -1,7 +1,7 @@
 Thamdo::Application.routes.draw do
-  match "sinhvien/:id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
+  match "monhoc/:id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
 
-  match "sinhvien/:id" => 'Sinhvien#update' , :as => :sinhvien, :via => :put
+  match "monhoc/:id" => 'Sinhvien#update' , :as => :sinhvien, :via => :post
 
   get "dashboard/index"
 

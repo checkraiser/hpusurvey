@@ -1,7 +1,2 @@
 Hello <%= current_user.masinhvien %>
 <br />
-<% current_sinhviens.each do |s| %>
-		
-	<%= link_to "#{s.malop} - #{s.mamon} - #{s.giangvien} - #{s.bomon}", sinhvien_path(:id => s.id) %>
-<br />
-<% end %>

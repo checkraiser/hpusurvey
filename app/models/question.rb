@@ -11,6 +11,9 @@ class Question < ActiveRecord::Base
 
   before_save :set_display_order
   after_create :create_default_answer
+
+  scope :by_type, lambda {|t| where('question_type_id = ?', t) }
+
   def to_s
   	"#{self.question_text}"
   end
