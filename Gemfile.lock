@@ -162,7 +162,6 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   devise
   devise_cas_authenticatable
-  formtastic
   jquery-rails
   rails (= 3.2.13)
   sass-rails (~> 3.2.3)
