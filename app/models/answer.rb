@@ -5,6 +5,8 @@ class Answer < ActiveRecord::Base
 
   belongs_to :question
   delegate :survey, :to => :question
+  has_many :ketquas
+  
   def to_s
   	"#{self.answer_text}"
   end

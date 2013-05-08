@@ -3,4 +3,6 @@ class Ketqua < ActiveRecord::Base
 
   belongs_to :answer
   belongs_to :sinhvien
+
+  
 end

@@ -1,0 +1,16 @@
+<%= form_for(@current_sinhvien) do |f| %>
+	
+	<% @current_survey.questions.each do |question| %>
+		<%= f.fields_for question do |ff| %>
+			<h2><%= question.question_text %></h2>
+			<% question.answers.each do |answer| %>
+				<%= ff.fields_for answer do |fff| %>
+					<%= fff.radio_button :id, :answer_text %>
+				<% end %>
+			<% end %>
+		<% end %>
+	<% end %>
+	
+	<input type="submit" value="Submit" />
+<% end %>
+

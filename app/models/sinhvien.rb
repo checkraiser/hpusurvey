@@ -3,12 +3,17 @@ class Sinhvien < ActiveRecord::Base
 
   validates_presence_of :bomon, :giangvien, :malop, :mamon, :masinhvien, :tenmon
   belongs_to :survey
+  has_many :questions, :through => :survey
+  accepts_nested_attributes_for :questions
+  
   scope :by_survey, lambda { |sid|
   	where('survey_id = ?', sid)
   }
   scope :by_masinhvien, lambda { |msv|
   	where('masinhvien = ?', msv)
   }
+  has_many :ketquas
+
   def voted?
   	return self.vote_date.is_a? DateTime
   end

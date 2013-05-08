@@ -6,7 +6,8 @@ class Survey < ActiveRecord::Base
 
   has_many :questions
   has_many :sinhviens
-
+  accepts_nested_attributes_for :questions
+  
   def to_s
   	"#{self.title}"
   end

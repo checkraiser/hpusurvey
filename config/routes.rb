@@ -1,4 +1,8 @@
 Thamdo::Application.routes.draw do
+  match "sinhvien/:id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
+
+  match "sinhvien/:id" => 'Sinhvien#update' , :as => :sinhvien, :via => :put
+
   get "dashboard/index"
 
  devise_for :users do
