@@ -33,6 +33,26 @@
     <!-- For all other devices -->
     <!-- Size should be 32 x 32 pixels -->
     <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+    <style>
+      .sidebar-nav-fixed {
+     position:fixed;
+     top:90px;
+     width:21.97%;
+ }
+
+ @media (max-width: 767px) {
+     .sidebar-nav-fixed {
+         width:auto;
+     }
+ }
+
+ @media (max-width: 979px) {
+     .sidebar-nav-fixed {
+         position:static;
+        width: auto;
+     }
+ }
+    </style>
   </head>
   <body>
 
@@ -44,12 +64,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#">Thamdo</a>
+          <a class="brand" href="#"><img src="/hpu.png" width="80px" />Hệ thống thăm dò giảng viên môn học</a>
           <div class="container-fluid nav-collapse">
-            <ul class="nav">
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
+            <ul class="nav nav-pills pull-right">
+              <% if user_signed_in? then %>                
+                <li><a  href="<%= users_sign_out_path %>"><i class="icon-off"></i>Đăng xuất</i></a></li>    
+              <% end %>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
@@ -59,23 +79,19 @@
     <div class="container-fluid">
       <div class="row-fluid">
         <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Link1", "/path1"  %></li>
-              <li><%= link_to "Link2", "/path2"  %></li>
-              <li><%= link_to "Link3", "/path3"  %></li>
-            </ul>
-          </div><!--/.well -->
+          
+            <%= yield :sidebar_info %>
+          
         </div><!--/span-->
-        <div class="span9">
+        <div class="span1"></div>
+        <div class="span8">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>
       </div><!--/row-->
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <p>&copy; Haiphong Private University 2013</p>
       </footer>
 
     </div> <!-- /container -->

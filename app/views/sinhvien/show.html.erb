@@ -1,20 +1,37 @@
-Hello <%= current_user.name %> <br />
+<% content_for :sidebar_info do %>
+  <div class="well sidebar-nav sidebar-nav-fixed">
+	<span class="badge badge-info"><h6><%= @current_survey %></h6></span> <br />
+	<hr>
+	<span class="badge badge-important">Họ và tên:</span><%= current_user.name %> <br />	
+			
+	<span class="badge badge-important">Mã sinh viên:</span><%= @current_sinhvien.masinhvien %> <br /><hr>
+	<span class="badge badge-warning">Giảng viên:</span><%= @current_sinhvien.giangvien %><br /><hr>
+	<span class="badge badge-success">Bộ môn:</span><%= @current_sinhvien.bomon %> <br />
+	<span class="badge badge-success">Tên môn:</span><%= @current_sinhvien.tenmon %> <br />
+	<span class="badge badge-success">Mã môn:</span><%= @current_sinhvien.mamon %> <br />
+	<span class="badge badge-success">Mã lớp:</span><%= @current_sinhvien.malop %> <br />
+  </div>
+<% end %>
+ 
 
 <% if @current_sinhvien then %>
-	<form action="<%= @current_sinhvien.id %>" method="post">
+	<form class="form-inline" action="<%= @current_sinhvien.id %>" method="post" data-validate="parsley">
 		<% @current_survey.questions.each do |question| %>		
-			<h2><%= question.question_text %></h2>
+			<h3><%= question.display_order %>: <%= question.question_text %></h3>
 			<% if question.is_radio? %>
-				<% question.answers.each_with_index do |answer, i| %>
-					<input type="radio" name="_radio_<%= question.id %>" value="<%= i %>" /><%= answer.answer_text %></br>
+				<% question.answers.each do |answer| %>
+					<input class="radio" type="radio" data-required="true" name="_radio_<%= question.id %>" value="<%= answer.id %>" data-error-message="Bạn phải chọn ít nhất 1 phương án" class="parsley-validated" /><%= answer.answer_text %></br>
 				<% end %>		
 			<% else %>
-				<textarea rows="4" cols="10" name="_text_<%= question.id %>"></textarea><br />
+				<% question.answers.each do |answer| %>
+					<textarea rows="4" cols="10" name="_text_<%= answer.id %>"></textarea><br />
+				<% end %>
 			<% end %>
 		<% end %>
+		<br />
 		 <input name="authenticity_token" 
 	               type="hidden" 
 	               value="<%= form_authenticity_token %>"/>
-		<input  type="submit" value="Submit" />
+		<input  class="btn btn-primary" type="submit" value="<%= @current_status %>" />
 	</form>
 <% end %>

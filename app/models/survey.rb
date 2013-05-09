@@ -3,9 +3,9 @@ class Survey < ActiveRecord::Base
 
   validates_presence_of :title, :open_date, :close_date
   belongs_to :semester
-
-  has_many :questions
-  has_many :sinhviens
+  validates :semester, presence: true
+  has_many :questions, :dependent => :destroy
+  has_many :sinhviens, :dependent => :destroy
   accepts_nested_attributes_for :questions
   
   def to_s

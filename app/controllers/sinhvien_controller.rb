@@ -1,3 +1,4 @@
+# encoding: utf-8
 class SinhvienController < DashboardController
   
   
@@ -6,7 +7,7 @@ class SinhvienController < DashboardController
   before_filter :get_sinhvien
 
   before_filter :check_complete, :only => [:update]
-
+  
 
   def show  	  	  	  	
   	redirect_to(root_path) unless @current_sinhvien  	
@@ -22,12 +23,18 @@ class SinhvienController < DashboardController
 	  	@radio_answers.each do |k,v|
 	  		Ketqua.create(:answer_id => v.to_i, :sinhvien_id => @current_sinhvien.id)
 	  	end
-	  	@text_answers.each do |k,v|
-	  		Ketqua.create(:answer_text => v.to_s, :sinhvien_id => @current_sinhvien.id)
+	  	@text_answers.each do |k,v|	  		
+	  		begin
+	  			ket = Ketqua.create(:answer_id => k[6..-1].to_i ,:answer_text => v.to_s, :sinhvien_id => @current_sinhvien.id)	  				  				  			
+		  	rescue Exception => e    
+		  		File.open("D:\\mylog.txt", 'w') { |file| file.write(e.message) }
+		  	end
 	  	end
 
 	  	check_condition 	
   end
+  private
+  	  
   protected
 	  def check_complete
 	  	@myparams = params.select {|k,v| v != nil and !v.empty?  }
@@ -45,7 +52,13 @@ class SinhvienController < DashboardController
 
   	  def current_sinhviens
 	  	@current_sinhviens ||= Sinhvien.by_masinhvien(current_user.masinhvien).by_survey(current_survey.id).by_voted  	
+	  	if @current_sinhviens.size > 1 then 
+	  		@current_status = "Môn tiếp theo"
+	  	else
+	  		@current_status = "Kết thúc"
+	  	end
 	  end
+
   	  def get_sinhvien  	  	
   	  	sv = Sinhvien.find(params[:id])
   	  	if !sv.voted? then
@@ -63,9 +76,10 @@ class SinhvienController < DashboardController
 	  def check_condition	  	
 		if !@current_sinhviens.empty? then 
 	  		@current_sinhvien = @current_sinhviens.first
-	  		redirect_to(@current_sinhvien)	  		
+	  		redirect_to @current_sinhvien, :flash => {:success => "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"}
+	  		return
 	  	else
-	  		redirect_to root_path  , :flash => { :notice => "No survey found." }
+	  		redirect_to root_path  , :flash => { :notice => "Cám ơn bạn đã hoàn thành bài thăm dò." }
 	  		return
 	  	end
 	  end

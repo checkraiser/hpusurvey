@@ -3,8 +3,10 @@ class Sinhvien < ActiveRecord::Base
 
   validates_presence_of :bomon, :giangvien, :malop, :mamon, :masinhvien, :tenmon
   belongs_to :survey
-  has_many :questions, :through => :survey
+  has_many :questions, :through => :survey, :dependent => :destroy
   accepts_nested_attributes_for :questions
+
+  validates :survey, presence: true
 
   scope :by_id, lambda { |id| 
     where('sinhvien_id = ?', id)
@@ -15,7 +17,7 @@ class Sinhvien < ActiveRecord::Base
   scope :by_masinhvien, lambda { |msv|
   	where('masinhvien = ?', msv)
   }
-  has_many :ketquas
+  has_many :ketquas, :dependent => :destroy
 
   scope :by_voted, where("ip_source = ?", "")
   def voted?

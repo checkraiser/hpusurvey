@@ -4,5 +4,6 @@ class Ketqua < ActiveRecord::Base
   belongs_to :answer
   belongs_to :sinhvien
 
-  
+  validates :answer, presence: true, :allow_nil => false
+  validates :sinhvien, presence: true, :allow_nil => false
 end

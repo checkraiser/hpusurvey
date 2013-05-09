@@ -1,3 +1,4 @@
+# encoding: utf-8
 class DashboardController < ApplicationController
 
   before_filter :authenticate_user!
@@ -10,7 +11,7 @@ class DashboardController < ApplicationController
 
   	if @current_sinhviens and !@current_sinhviens.empty? then
 	  	@current_sinhvien = @current_sinhviens.first  	
-	  	redirect_to(@current_sinhvien) if @current_sinhvien
+	  	redirect_to(@current_sinhvien, :flash => {:success => "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"}) if @current_sinhvien
 	  	return
 	end
   	
@@ -25,8 +26,8 @@ class DashboardController < ApplicationController
   helper_method :current_sinhviens
 
   def catch_not_found
-	yield
+	 yield
   rescue ActiveRecord::RecordNotFound
-	redirect_to root_url, :flash => { :error => "Record not found." }
+	 redirect_to root_url, :flash => { :error => "Record not found." }
   end
 end
