@@ -16,6 +16,4 @@ class Survey < ActiveRecord::Base
   	svs = Sinhvien.by_masinhvien(user.masinhvien).by_survey(self.id).by_voted  	
   	return svs.empty?
   end
-
-  
 end

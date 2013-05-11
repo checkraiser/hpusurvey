@@ -13,19 +13,14 @@ class SinhvienController < DashboardController
   end
 
   def update
-  	  @current_sinhvien.vote_date = DateTime.now
-	  	@current_sinhvien.ip_source = @current_ip.to_s	  
-	  	@current_sinhvien.save	 
-
-	  	
-
+  	  @current_sinhvien.update_voted!	  	
 	  	@radio_answers.each do |k,v|
-	  		Ketqua.create(:answer_id => v.to_i, :sinhvien_id => @current_sinhvien.id)
+	  		Ketqua.create!(:answer_id => v.to_i, :sinhvien_id => @current_sinhvien.id)
 	  	end
 	  	@text_answers.each do |k,v|	  		
 	  		begin
-	  			ket = Ketqua.create(:answer_id => k[6..-1].to_i ,:answer_text => v.to_s, :sinhvien_id => @current_sinhvien.id)	  				  				  			
-		  	rescue Exception => e    
+	  			ket = Ketqua.create!(:answer_id => k[6..-1].to_i ,:answer_text => v.to_s, :sinhvien_id => @current_sinhvien.id)	  				  				  			
+		  	rescue => e    
 		  		File.open("D:\\mylog.txt", 'w') { |file| file.write(e.message) }
 		  	end
 	  	end

@@ -8,9 +8,6 @@ class Sinhvien < ActiveRecord::Base
 
   validates :survey, presence: true
 
-  scope :by_id, lambda { |id| 
-    where('sinhvien_id = ?', id)
-  }
   scope :by_survey, lambda { |sid|
   	where('survey_id = ?', sid)
   }
@@ -24,7 +21,11 @@ class Sinhvien < ActiveRecord::Base
   def voted?
   	return ip_source.length > 0
   end
-
+  def update_voted!
+     self.vote_date = DateTime.now
+      self.ip_source = @current_ip.to_s    
+      self.save!
+  end
   def to_s
     "#{self.masinhvien} - #{self.survey} - #{self.giangvien} - #{self.tenmon}"
   end
