@@ -14,6 +14,7 @@ class Sinhvien < ActiveRecord::Base
   scope :by_survey, lambda { |sid|
   	where('survey_id = ?', sid)
   }
+  
   scope :by_masinhvien, lambda { |msv|
   	where('masinhvien = ?', msv)
   }

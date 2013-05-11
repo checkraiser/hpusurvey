@@ -1,6 +1,6 @@
 <% content_for :sidebar_info do %>
   <div class="well sidebar-nav sidebar-nav-fixed">
-	<h3><%= @current_survey %></h3><hr>
+	<h4><%= @current_survey %></h4><hr>
 	
 	<table class="table">
 		<tr>
@@ -29,9 +29,9 @@
  
 
 <% if @current_sinhvien then %>
-	<form class="form-inline" action="<%= @current_sinhvien.id %>" method="post" data-validate="parsley">
+	<form class="form-inline" action="<%= sinhvien_path(@current_survey,@current_sinhvien) %>" method="post" data-validate="parsley">
 		<% @current_survey.questions.each do |question| %>		
-			<h3><%= question.display_order %>: <%= question.question_text %></h3><span id="_error_<%= question.id %>" style="color:red; !important"></span>
+			<h4><%= question.display_order %>: <%= question.question_text %></h4><span id="_error_<%= question.id %>" style="color:red; !important"></span>
 			<% if question.is_radio? %>
 				<% question.answers.each do |answer| %>
 					

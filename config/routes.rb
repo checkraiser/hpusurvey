@@ -1,8 +1,8 @@
 Thamdo::Application.routes.draw do
-  match "monhoc/:id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
+  match "thamdo/:id/monhoc/:monhoc_id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
 
-  match "monhoc/:id" => 'Sinhvien#update' , :as => :sinhvien, :via => :post
-
+  match "thamdo/:id/monhoc/:monhoc_id" => 'Sinhvien#update' , :as => :sinhvien, :via => :post
+  match "thamdo/:id" => 'Dashboard#show' , :as => :thamdo, :via => :get
   get "dashboard/index"
 
  devise_for :users do

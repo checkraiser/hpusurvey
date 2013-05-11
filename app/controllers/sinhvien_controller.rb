@@ -1,11 +1,9 @@
 # encoding: utf-8
 class SinhvienController < DashboardController
-  
-  
+        
+  before_filter :get_sinhvien
   before_filter :get_survey
   before_filter :current_sinhviens
-  before_filter :get_sinhvien
-
   before_filter :check_complete, :only => [:update]
   
 
@@ -61,7 +59,7 @@ class SinhvienController < DashboardController
 	  end
 
   	  def get_sinhvien  	  	
-  	  	sv = Sinhvien.find(params[:id])
+  	  	sv = Sinhvien.find(params[:monhoc_id])
   	  	if !sv.voted? then
   	  		@current_sinhvien = sv 
   	  	else
@@ -77,7 +75,8 @@ class SinhvienController < DashboardController
 	  def check_condition	  	
 		if !@current_sinhviens.empty? then 
 	  		@current_sinhvien = @current_sinhviens.first
-	  		redirect_to @current_sinhvien, :flash => {:success => "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"}
+	  		flash[:success] = "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"
+	  		redirect_to sinhvien_path(@current_survey, @current_sinhvien )
 	  		return
 	  	else
 	  		redirect_to root_path  , :flash => { :notice => "Cám ơn bạn đã hoàn thành bài thăm dò." }
