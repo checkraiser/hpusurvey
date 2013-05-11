@@ -35,4 +35,9 @@ Thamdo::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
   config.log_level = :debug
+  config.action_dispatch.rack_cache = {
+    metastore:   "redis://localhost:6379/1/metastore",
+    entitystore: "redis://localhost:6379/1/entitystore"
+  }
+  
 end

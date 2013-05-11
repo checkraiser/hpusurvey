@@ -36,14 +36,23 @@
     <style>
       .sidebar-nav-fixed {
      position:fixed;
-     top:90px;
+     top:120px;
      width:21.97%;
  }
-
+  .container-fluid {
+    margin: -5px auto;
+  }
+  #maincontent {
+    margin-top: 100px;
+    margin-left: 30%;
+  }
  @media (max-width: 767px) {
      .sidebar-nav-fixed {
          width:auto;
      }
+     #maincontent {
+     width: auto;
+  }
  }
 
  @media (max-width: 979px) {
@@ -51,12 +60,16 @@
          position:static;
         width: auto;
      }
+     #maincontent {
+      position:static;
+     width: auto;
+  }
  }
     </style>
   </head>
   <body>
 
-    <div class="navbar navbar-fluid-top">
+    <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
           <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
@@ -64,11 +77,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><img src="/hpu.png" width="80px" />Hệ thống thăm dò giảng viên môn học</a>
+          <a class="brand" href="#"><img src="/hpu.png" width="80px" /><span style="color: blue; font-size: 20pt">Hệ thống thăm dò giảng viên</span></a>
           <div class="container-fluid nav-collapse">
             <ul class="nav nav-pills pull-right">
               <% if user_signed_in? then %>                
-                <li><a  href="<%= users_sign_out_path %>"><i class="icon-off"></i>Đăng xuất</i></a></li>    
+                <li style="margin-top:8px;"><a  href="<%= users_sign_out_path %>"><i class="icon-off"></i>Đăng xuất</a></li>    
               <% end %>
             </ul>
           </div><!--/.nav-collapse -->
@@ -76,7 +89,7 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div  class="container-fluid">
       <div class="row-fluid">
         <div class="span3">
           
@@ -84,7 +97,7 @@
           
         </div><!--/span-->
         <div class="span1"></div>
-        <div class="span8">
+        <div id="maincontent" class="span8">
           <%= bootstrap_flash %>
           <%= yield %>
         </div>

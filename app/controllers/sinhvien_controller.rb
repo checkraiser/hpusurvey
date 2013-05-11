@@ -11,6 +11,7 @@ class SinhvienController < DashboardController
 
   def show  	  	  	  	
   	redirect_to(root_path) unless @current_sinhvien  	
+  	flash[:success] = "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"
   end
 
   def update
@@ -39,7 +40,7 @@ class SinhvienController < DashboardController
 	  def check_complete
 	  	@myparams = params.select {|k,v| v != nil and !v.empty?  }
 
-	  	@radio_answers = @myparams.select {|k,v| k.include?('_radio_')}
+	  	@radio_answers = @myparams.select {|k,v|  k.include?('_radio_')}
 	  	@text_answers = @myparams.select {|k,v| k.include?('_text_')}
 	  	@radio_questions = @current_survey.questions.select { |q| q.question_type_id == 1}
 
