@@ -1,4 +1,9 @@
+
+
 Thamdo::Application.routes.draw do
+  
+  match "user/status/:id" => 'User#status', :as => :user_status, :via => :get
+  match "users/" => 'User#index', :as => :all_users, :via => :get
   match "thamdo/:id/monhoc/:monhoc_id" => 'Sinhvien#show' , :as => :sinhvien, :via => :get
 
   match "thamdo/:id/monhoc/:monhoc_id" => 'Sinhvien#update' , :as => :sinhvien, :via => :post
@@ -11,7 +16,7 @@ Thamdo::Application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

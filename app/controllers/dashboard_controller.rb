@@ -9,11 +9,16 @@ class DashboardController < ApplicationController
   
   around_filter :catch_not_found
 
+  
   def index
   	  	
   end
   
   def show
+    if !@current_survey.has_questions? then 
+      redirect_to root_path, :flash => {:notice => "No Question"}
+      return
+    end
     if @current_sinhviens and !@current_sinhviens.empty? then
       @current_sinhvien = @current_sinhviens.first    
       flash[:success] = "Bạn đang làm bài thăm dò môn: #{@current_sinhvien.tenmon}"

@@ -41,3 +41,9 @@ gem 'jquery-rails'
 gem "twitter-bootstrap-rails"
 gem "parsley-rails"
 gem 'redis-rails'
+group :development do
+  gem 'brakeman', :require => false
+end
+
+gem 'resque' # or a compatible alternative / fork
+gem 'resque_mailer'

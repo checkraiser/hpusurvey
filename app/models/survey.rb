@@ -5,12 +5,14 @@ class Survey < ActiveRecord::Base
 
   has_many :questions, :dependent => :destroy
   has_many :sinhviens, :dependent => :destroy
-  accepts_nested_attributes_for :questions
-
+  
 
   default_scope where(:activated => true)
   def to_s
   	"#{self.title}"
+  end
+  def has_questions?
+    self.questions.size > 0
   end
   def is_voted?(user)
   	svs = Sinhvien.by_masinhvien(user.masinhvien).by_survey(self.id).by_voted  	

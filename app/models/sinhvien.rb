@@ -4,7 +4,7 @@ class Sinhvien < ActiveRecord::Base
   validates_presence_of :bomon, :giangvien, :malop, :mamon, :masinhvien, :tenmon
   belongs_to :survey
   has_many :questions, :through => :survey, :dependent => :destroy
-  accepts_nested_attributes_for :questions
+
 
   validates :survey, presence: true
 
@@ -13,7 +13,7 @@ class Sinhvien < ActiveRecord::Base
   }
   
   scope :by_masinhvien, lambda { |msv|
-  	where('masinhvien = ?', msv)
+  	where('lower(masinhvien) = ?', msv.downcase)
   }
   has_many :ketquas, :dependent => :destroy
 
